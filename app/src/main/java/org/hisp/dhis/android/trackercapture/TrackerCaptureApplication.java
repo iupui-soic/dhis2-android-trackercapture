@@ -30,8 +30,14 @@
 package org.hisp.dhis.android.trackercapture;
 
 import android.app.Activity;
+import android.support.annotation.LayoutRes;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import org.hisp.dhis.android.sdk.persistence.Dhis2Application;
+import org.hisp.dhis.android.sdk.ui.activities.LoginActivity;
 
 /**
  * @author Simen Skogly Russnes on 02.03.15.
@@ -40,8 +46,7 @@ public class TrackerCaptureApplication extends Dhis2Application {
 
     @Override
     public void onCreate() {
-        super.onCreate();
-
+    super.onCreate();
 //        if (LeakCanary.isInAnalyzerProcess(this)) {
 //            // This process is dedicated to LeakCanary for heap analysis.
 //            // You should not init your app in this process.
@@ -55,4 +60,5 @@ public class TrackerCaptureApplication extends Dhis2Application {
     public Class<? extends Activity> getMainActivity() {
         return new MainActivity().getClass();
     }
+
 }
