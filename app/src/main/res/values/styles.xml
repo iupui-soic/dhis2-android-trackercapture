@@ -1,0 +1,16 @@
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--mod: inherit from loginScreenTheme in core, changing background to white-->
+
+    <style name="LoginScreenTheme.custom" parent="LoginScreenTheme">
+        <item name="android:background">@color/white</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="color">@color/White</item>
+        <item name="android:windowBackground">@color/White</item>
+    </style>
+
+
+</resources>
