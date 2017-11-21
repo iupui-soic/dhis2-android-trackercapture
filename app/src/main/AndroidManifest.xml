@@ -33,7 +33,7 @@
 
     <!--mod: overriding allows local resources to override core resources-->
     <uses-sdk android:targetSdkVersion="21"
-        tools:overrideLibrary=":core"/>
+        tools:overrideLibrary=":core,:ui"/>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -48,7 +48,7 @@
         android:allowBackup="false"
         tools:replace="android:allowBackup,android:theme"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name.custom"
+        android:label="@string/app_name_custom"
         android:theme="@style/AppTheme.Base">
         <!--mod: changed app name -->
         <activity

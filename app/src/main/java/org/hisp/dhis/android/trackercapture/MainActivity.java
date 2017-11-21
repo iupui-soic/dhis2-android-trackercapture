@@ -37,6 +37,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -73,10 +74,36 @@ public class MainActivity extends AbsHomeActivity {
     private static final String APPS_TRACKER_CAPTURE_REPORTS_PACKAGE =
             "org.hispindia.bidtrackerreports";
     private static final int REQUEST_ACCESS_FINE_LOCATION = 1;
+    /* mod: strings naming app packages for adding to drawer */
+    private static final String APPS_REDCAP_PACKAGE =
+            "edu.vanderbilt.redcap";
+    private static final String APPS_ECEB_PACKAGE =
+            "com.eceb";
+    private static final String APPS_ECSB_PACKAGE =
+            "com.ecsb";
+    private static final String APPS_MHBS_TRAINING_PACKAGE =
+            "edu.iupui.soic.biohealth.plhi.mhbs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /* mod: added visibility of custom drawer apps-- note that in the official documentation
+         * better functionality for doing this is being worked on, so check back to improve
+         * handling of this feature. (see comment in AbsHomeActivity)
+         */
+        NavigationView nv = (NavigationView) findViewById(R.id.navigation_view);
+        try {
+            nv.getMenu().findItem(R.id.drawer_item_ECEB).setVisible(isInstalled(APPS_ECEB_PACKAGE));
+            nv.getMenu().findItem(R.id.drawer_item_mHBSTraining).setVisible(isInstalled(APPS_MHBS_TRAINING_PACKAGE));
+            nv.getMenu().findItem(R.id.drawer_item_ECSB).setVisible(isInstalled(APPS_ECSB_PACKAGE));
+            nv.getMenu().findItem(R.id.drawer_item_redcap).setVisible(isInstalled(APPS_REDCAP_PACKAGE));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
         ScreenSizeConfigurator.init(getWindowManager());
 
         boolean hasPermissionLocation = (ContextCompat.checkSelfPermission(MainActivity.this,
@@ -108,6 +135,7 @@ public class MainActivity extends AbsHomeActivity {
         setUpNavigationView(savedInstanceState);
     }
 
+    //todo: testing adding 12
     private void setUpNavigationView(Bundle savedInstanceState) {
         removeMenuItem(R.id.drawer_item_profile);
         addMenuItem(11, R.drawable.ic_add, R.string.enroll);
@@ -215,7 +243,15 @@ public class MainActivity extends AbsHomeActivity {
             isSelected = true;
         } else if (menuItemId == R.id.drawer_item_information) {
             attachFragment(getInformationFragment());
-            isSelected = true;
+            isSelected = true; /* mod: added drawer items */
+        } else if (menuItemId == R.id.drawer_item_redcap) {
+            isSelected = openApp(APPS_REDCAP_PACKAGE);
+        } else if (menuItemId == R.id.drawer_item_ECEB) {
+            isSelected = openApp(APPS_ECEB_PACKAGE);
+        } else if (menuItemId == R.id.drawer_item_ECSB) {
+            isSelected = openApp(APPS_ECSB_PACKAGE);
+        }else if (menuItemId == R.id.drawer_item_mHBSTraining) {
+            isSelected = openApp(APPS_MHBS_TRAINING_PACKAGE);
         }
         /*else if (menuItemId == R.id.drawer_item_help) {
             attachFragment(getHelpFragment());
@@ -244,5 +280,19 @@ public class MainActivity extends AbsHomeActivity {
         return WrapperFragment.newInstance(InformationFragment.class,
                 getString(R.string.drawer_item_information),
                 args);
+    }
+
+    /* mod: mirrors function in AbsHomeActivity, the need for this will hopefully be
+    *  removed in future tracker sdk revisions
+    * */
+    private boolean isInstalled(String packageName) {
+        PackageManager packageManager = getBaseContext().getPackageManager();
+        try {
+            // using side effect of calling getPackageInfo() method
+            packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 }
