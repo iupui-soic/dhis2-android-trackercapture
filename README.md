@@ -8,9 +8,11 @@ To run with our database, you can use the following:
 - Password: district
 
 # Initialize the submodules
-To initialize the SDK as a submodule, from the command line you can run:
-- git submodule init
-- git submodule update
+To initialize the SDK as a submodule, from the command line you can clone as:
+git clone --recursive
+or run 
+git submodule update --init
+on existing local repository
 
 To unininitialize and clean submodules, run git submodule deinit --all
 
