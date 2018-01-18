@@ -9,12 +9,14 @@ To run with our database, you can use the following:
 
 # Initialize the submodules
 To initialize the SDK as a submodule, from the command line you can clone as:
-git clone --recursive
-or run 
-git submodule update --init
-on existing local repository
 
-To unininitialize and clean submodules, run git submodule deinit --all
+`git clone --recursive`
+
+or run 
+
+`git submodule update --init` on existing local repository
+
+To unininitialize and clean submodules, run `git submodule deinit --all`
 
 # How to Download and Set up in Android Studio
 Stepwise explanation on how to set it up: https://docs.google.com/document/d/141uX2IKA7NRouaYDAPUhJu29WRmiw7UxwNtXSj_iOVA/edit?usp=sharing 
