@@ -25,15 +25,13 @@
   ~  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
   ~  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   ~  */
-  -->
-
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.hisp.dhis.android.trackercapture">
-
-    <!--mod: overriding allows local resources to override core resources-->
-    <uses-sdk android:targetSdkVersion="21"
-        tools:overrideLibrary=":core,:ui"/>
+    package="org.hisp.dhis.android.trackercapture"> <!-- mod: overriding allows local resources to override core resources -->
+    <uses-sdk
+        android:targetSdkVersion="21"
+        tools:overrideLibrary=":core,:ui" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -41,22 +39,24 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
-    <!--mod: replace theme allows local custom styles; added custom LoginScreenTheme-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- mod: replace theme allows local custom styles; added custom LoginScreenTheme -->
     <application
-        android:name="org.hisp.dhis.android.trackercapture.TrackerCaptureApplication"
+        android:name=".TrackerCaptureApplication"
         android:allowBackup="false"
-        tools:replace="android:allowBackup,android:theme"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name_custom"
-        android:theme="@style/AppTheme.Base">
-        <!--mod: changed app name -->
+        android:theme="@style/AppTheme.Base"
+        tools:replace="android:allowBackup,android:theme">
+
+        <!-- mod: changed app name -->
         <activity
             android:name="org.hisp.dhis.android.sdk.ui.activities.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/LoginScreenTheme.custom">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -65,32 +65,31 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/LoginScreenTheme"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_main"
             android:windowSoftInputMode="adjustPan">
-            <!-- mod: add intent-filter to allow launch from URL in text message-->
+
+            <!-- mod: add intent-filter to allow launch from URL in text message -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
-                    android:scheme="http"
-                    android:host="mhbs.com">
-                </data>
+                    android:host="mhbs.com"
+                    android:scheme="http"></data>
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.HolderActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan|stateHidden">
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
 
-        </activity>
-
-        <receiver android:name="org.hisp.dhis.android.sdk.services.PeriodicSynchronizer"></receiver>
+        <receiver android:name="org.hisp.dhis.android.sdk.services.PeriodicSynchronizer" />
         <receiver android:name="org.hisp.dhis.android.sdk.services.PeriodicSynchronizerAutoStarter">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -101,7 +100,7 @@
             android:name="org.hisp.dhis.android.sdk.services.StartPeriodicSynchronizerService"
             android:enabled="true" />
         <service
-            android:name="org.hisp.dhis.android.trackercapture.export.TrackerExportService"
+            android:name=".export.TrackerExportService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -116,8 +115,9 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="b40e830e776f80dffd15e8df6ba58733a36b1e48" />
+
         <provider
-            android:name="org.hisp.dhis.android.trackercapture.export.DBProvider"
+            android:name=".export.DBProvider"
             android:authorities="${applicationId}.export.ExportData"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -125,6 +125,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <receiver
+            android:name=".receivers.LoginReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="edu.iupui.soic.biohealth.plhi.mhbs.activities.SharedLoginActivity"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

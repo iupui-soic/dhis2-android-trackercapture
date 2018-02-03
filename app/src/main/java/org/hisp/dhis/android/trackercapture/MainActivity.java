@@ -35,20 +35,26 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.hardware.Sensor;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import org.hisp.dhis.android.sdk.controllers.DhisController;
 import org.hisp.dhis.android.sdk.controllers.PeriodicSynchronizerController;
 import org.hisp.dhis.android.sdk.controllers.metadata.MetaDataController;
+import org.hisp.dhis.android.sdk.network.Credentials;
 import org.hisp.dhis.android.sdk.network.Session;
 import org.hisp.dhis.android.sdk.persistence.Dhis2Application;
+import org.hisp.dhis.android.sdk.persistence.models.User;
 import org.hisp.dhis.android.sdk.persistence.models.UserAccount;
 import org.hisp.dhis.android.sdk.utils.ScreenSizeConfigurator;
 import org.hisp.dhis.android.trackercapture.activities.HolderActivity;
@@ -56,6 +62,9 @@ import org.hisp.dhis.android.trackercapture.fragments.selectprogram.SelectProgra
 import org.hisp.dhis.client.sdk.ui.activities.AbsHomeActivity;
 import org.hisp.dhis.client.sdk.ui.fragments.InformationFragment;
 import org.hisp.dhis.client.sdk.ui.fragments.WrapperFragment;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MainActivity extends AbsHomeActivity {
     public final static String TAG = MainActivity.class.getSimpleName();
@@ -118,7 +127,6 @@ public class MainActivity extends AbsHomeActivity {
             return;
         }
         Dhis2Application.bus.register(this);
-
         PeriodicSynchronizerController.activatePeriodicSynchronizer(this);
         setUpNavigationView(savedInstanceState);
     }
@@ -234,7 +242,26 @@ public class MainActivity extends AbsHomeActivity {
         } else if (menuItemId == R.id.drawer_item_ECSB) {
             isSelected = openApp(APPS_ECSB_PACKAGE);
         }else if (menuItemId == R.id.drawer_item_mHBSTraining) {
-            isSelected = openApp(APPS_MHBS_TRAINING_PACKAGE);
+            //isSelected = openApp(APPS_MHBS_TRAINING_PACKAGE);
+            Intent intent = getBaseContext().getPackageManager()
+                    .getLaunchIntentForPackage(APPS_MHBS_TRAINING_PACKAGE);
+            if (intent != null) {
+                /* mod  force the session to be set to access user credentials
+                        via informationFragment then pass the user details to
+                        training app so the login can be
+                        bypassed
+                 */
+                getInformationFragment();
+                Session session = DhisController.getInstance().getSession();
+                ArrayList<String> userDetails = new ArrayList<>();
+                userDetails.add(0,session.getCredentials().getUsername());
+                userDetails.add(1,session.getCredentials().getPassword());
+                userDetails.add(2,session.getServerUrl().toString());
+                intent.putExtra("key:loginRequest", userDetails);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getBaseContext().startActivity(intent);
+                return true;
+            }
         }
         /*else if (menuItemId == R.id.drawer_item_help) {
             attachFragment(getHelpFragment());
@@ -252,6 +279,7 @@ public class MainActivity extends AbsHomeActivity {
 
         return isSelected;
     }
+
 
     protected Fragment getInformationFragment() {
         Bundle args = new Bundle();
