@@ -125,6 +125,14 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <receiver
+                    android:name=".receivers.LoginReceiver"
+                    android:enabled="true"
+                    android:exported="true">
+                    <intent-filter>
+                        <action android:name="edu.iupui.soic.biohealth.plhi.mhbs.activities.SharedLoginActivity"/>
+                    </intent-filter>
+                </receiver>
     </application>
 
 </manifest>
