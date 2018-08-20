@@ -130,7 +130,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="edu.iupui.soic.biohealth.plhi.mhbs.activities.SharedLoginActivity"/>
+                <action android:name="edu.iupui.soic.bhi.plhi.mhbs.training.activities.SharedLoginActivity"/>
             </intent-filter>
         </receiver>
     </application>

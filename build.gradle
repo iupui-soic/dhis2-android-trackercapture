@@ -36,8 +36,8 @@ ext {
     versionName = "0.5.1"
 
     configuration = [
-            package          : "org.hisp.dhis.android.trackercapture",
-            applicationId    : "org.hisp.dhis.android.trackercapture",
+            package          : "edu.iupui.soic.bhi.plhi.mhbs",
+            applicationId    : "edu.iupui.soic.bhi.plhi.mhbs.trackercapture",
             buildToolsVersion: "23.0.2",
             minSdkVersion    : 15,
             compileSdkVersion: 23,

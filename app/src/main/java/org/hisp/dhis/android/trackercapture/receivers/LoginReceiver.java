@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 
 public class LoginReceiver extends BroadcastReceiver {
-    private static final String APPS_MHBS_TRAINING_PACKAGE = "edu.iupui.soic.biohealth.plhi.mhbs";
+    private static final String APPS_MHBS_TRAINING_PACKAGE = "edu.iupui.soic.bhi.plhi.mhbs.training";
     private static final String keyRequest = "key:loginRequest";
     private static final String PIN_ID = "Nf2mWKVwmGK";
 

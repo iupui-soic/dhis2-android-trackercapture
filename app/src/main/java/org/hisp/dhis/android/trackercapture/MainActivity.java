@@ -79,7 +79,7 @@ public class MainActivity extends AbsHomeActivity {
     private static final String APPS_ECSB_PACKAGE =
             "com.ecsb";
     private static final String APPS_MHBS_TRAINING_PACKAGE =
-            "edu.iupui.soic.biohealth.plhi.mhbs";
+            "edu.iupui.soic.bhi.plhi.mhbs.training";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
