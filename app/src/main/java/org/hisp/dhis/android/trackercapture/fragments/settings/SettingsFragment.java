@@ -23,42 +23,45 @@ import java.io.IOException;
 public class SettingsFragment extends
         org.hisp.dhis.android.sdk.ui.fragments.settings.SettingsFragment{
 
+    //endregion
     private FontButton exportDataButton;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        exportDataButton = (FontButton) view.findViewById(R.id.settings_export_data);
-        exportDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onExportDataClick();
-            }
-        });
-        FontCheckBox fontCheckBox = (FontCheckBox) view.findViewById(
-                R.id.checkbox_developers_options);
+            exportDataButton = (FontButton) view.findViewById(R.id.settings_export_data);
+            exportDataButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onExportDataClick();
+                }
+            });
+            FontCheckBox fontCheckBox = (FontCheckBox) view.findViewById(
+                    R.id.checkbox_developers_options);
 
-        Context context = getActivity().getApplicationContext();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
-                context);
-        fontCheckBox.setChecked(sharedPreferences.getBoolean(
-                getActivity().getApplicationContext().getResources().getString(
-                        R.string.developer_option_key), false));
-        toggleOptions(fontCheckBox.isChecked());
-        fontCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean value) {
-                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(
-                        getActivity().getApplicationContext());
-                SharedPreferences.Editor prefEditor =
-                        sharedPref.edit(); // Get preference in editor mode
-                prefEditor.putBoolean(
-                        getActivity().getApplicationContext().getResources().getString(
-                                org.hisp.dhis.android.sdk.R.string.developer_option_key), value);
-                prefEditor.commit();
-                toggleOptions(value);
-            }
-        });
+            Context context = getActivity().getApplicationContext();
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
+                    context);
+            fontCheckBox.setChecked(sharedPreferences.getBoolean(
+                    getActivity().getApplicationContext().getResources().getString(
+                            R.string.developer_option_key), false));
+            toggleOptions(fontCheckBox.isChecked());
+            fontCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean value) {
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(
+                            getActivity().getApplicationContext());
+                    SharedPreferences.Editor prefEditor =
+                            sharedPref.edit(); // Get preference in editor mode
+                    prefEditor.putBoolean(
+                            getActivity().getApplicationContext().getResources().getString(
+                                    org.hisp.dhis.android.sdk.R.string.developer_option_key), value);
+                    prefEditor.commit();
+                    toggleOptions(value);
+                }
+            });
     }
+
+
 
     private void toggleOptions(boolean value) {
         if (value) {
@@ -82,6 +85,7 @@ public class SettingsFragment extends
     }
 
 
+
     @Subscribe
     public void onSynchronizationFinishedEvent(final UiEvent event)
     {
@@ -92,4 +96,6 @@ public class SettingsFragment extends
     public void onLoadingMessageEvent(final LoadingMessageEvent event) {
         super.onLoadingMessageEvent(event);
     }
+
+
 }
