@@ -97,4 +97,8 @@
     <string name="overdue_events">OVERDUE EVENTS</string>
     <string name="active_events">ACTIVE EVENTS</string>
     <string name="events_title">Timeline Data Entry</string>
+
+    <!-- overriding sdk strings -->
+    <string name="choose_organisation_unit">Choose health facility</string>
+    <string name="dialog_organisation_units">Health Facilities</string>
 </resources>

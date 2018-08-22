@@ -155,12 +155,12 @@ public class SelectProgramFragment extends org.hisp.dhis.android.sdk.ui.fragment
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_select_program, menu);
-        item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-        MenuItemCompat.setOnActionExpandListener(item, this);
-        searchView.setOnQueryTextListener(this);
-        searchView.setOnQueryTextFocusChangeListener(this);
-        searchView.setOnCloseListener(this);
+        //item = menu.findItem(R.id.action_search);
+        //SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        //MenuItemCompat.setOnActionExpandListener(item, this);
+        //searchView.setOnQueryTextListener(this);
+        //searchView.setOnQueryTextFocusChangeListener(this);
+        //searchView.setOnCloseListener(this);
     }
 
     @Override
