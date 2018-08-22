@@ -33,7 +33,7 @@ ext {
     compileSdkVersion = 23
     targetSdkVersion = 23
     versionCode = 59
-    versionName = "0.5.1"
+    versionName = "0.5.2"
 
     configuration = [
             package          : "edu.iupui.soic.bhi.plhi.mhbs",
@@ -43,7 +43,7 @@ ext {
             compileSdkVersion: 23,
             targetSdkVersion : 23,
             versionCode      : 58,
-            versionName      : "0.5.0"
+            versionName      : "0.5.2"
     ]
 
     libraries = [

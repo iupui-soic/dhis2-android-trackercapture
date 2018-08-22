@@ -28,5 +28,5 @@
   ~  */
   -->
 <resources>
-    <string name="app_name" translatable="false">mHBS Tracker</string>
+    <string name="app_name" translatable="false">mHBS</string>
 </resources>

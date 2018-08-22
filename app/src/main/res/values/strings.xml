@@ -30,7 +30,7 @@
 
 <resources>
     <!-- mod: custom app name-->
-    <string name="app_name_custom">mHBS(Powered by DHIS2)</string>
+    <string name="app_name_custom">mHBS (Powered by DHIS2)</string>
     <!--mod: custom apps in drawer-->
     <string name="drawer_item_redcap">Redcap</string>
     <string name="drawer_item_ECEB">Essential Care for Every Baby</string>
