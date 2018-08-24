@@ -60,26 +60,19 @@ import org.hisp.dhis.client.sdk.ui.fragments.WrapperFragment;
 public class MainActivity extends AbsHomeActivity {
     public final static String TAG = MainActivity.class.getSimpleName();
 
-    private static final String APPS_DASHBOARD_PACKAGE =
-            "org.hisp.dhis.android.dashboard";
-    private static final String APPS_DATA_CAPTURE_PACKAGE =
-            "org.dhis2.mobile";
-    private static final String APPS_EVENT_CAPTURE_PACKAGE =
-            "org.hisp.dhis.android.eventcapture";
-    private static final String APPS_TRACKER_CAPTURE_PACKAGE =
-            "org.hisp.dhis.android.trackercapture";
-    private static final String APPS_TRACKER_CAPTURE_REPORTS_PACKAGE =
-            "org.hispindia.bidtrackerreports";
+    private static final String APPS_DASHBOARD_PACKAGE = "org.hisp.dhis.android.dashboard";
+    private static final String APPS_DATA_CAPTURE_PACKAGE = "org.dhis2.mobile";
+    private static final String APPS_EVENT_CAPTURE_PACKAGE = "org.hisp.dhis.android.eventcapture";
+    private static final String APPS_TRACKER_CAPTURE_PACKAGE = "org.hisp.dhis.android.trackercapture";
+    private static final String APPS_TRACKER_CAPTURE_REPORTS_PACKAGE = "org.hispindia.bidtrackerreports";
     private static final int REQUEST_ACCESS_FINE_LOCATION = 1;
     /* mod: strings naming app packages for adding to drawer */
-    private static final String APPS_REDCAP_PACKAGE =
-            "edu.vanderbilt.redcap";
-    private static final String APPS_ECEB_PACKAGE =
-            "com.eceb";
-    private static final String APPS_ECSB_PACKAGE =
-            "com.ecsb";
-    private static final String APPS_MHBS_TRAINING_PACKAGE =
-            "edu.iupui.soic.bhi.plhi.mhbs.training";
+    private static final String APPS_REDCAP_PACKAGE = "edu.vanderbilt.redcap";
+    private static final String APPS_ECEB_PACKAGE = "com.eceb";
+    private static final String APPS_ECSB_PACKAGE = "com.ecsb";
+    private static final String APPS_MHBS_TRAINING_PACKAGE = "edu.iupui.soic.bhi.plhi.mhbs.training";
+    private static final String APPS_EHBB_PACKAGE = "uk.ac.ox.tropicalmedicine.eHBB";
+    private static final String APPS_SAFEDELIVERY_PACKAGE = "dk.maternity.safedelivery";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +88,8 @@ public class MainActivity extends AbsHomeActivity {
             nv.getMenu().findItem(R.id.drawer_item_mHBSTraining).setVisible(isInstalled(APPS_MHBS_TRAINING_PACKAGE));
             nv.getMenu().findItem(R.id.drawer_item_ECSB).setVisible(isInstalled(APPS_ECSB_PACKAGE));
             nv.getMenu().findItem(R.id.drawer_item_redcap).setVisible(isInstalled(APPS_REDCAP_PACKAGE));
+            nv.getMenu().findItem(R.id.drawer_item_redcap).setVisible(isInstalled(APPS_EHBB_PACKAGE));
+            nv.getMenu().findItem(R.id.drawer_item_redcap).setVisible(isInstalled(APPS_SAFEDELIVERY_PACKAGE));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -233,8 +228,12 @@ public class MainActivity extends AbsHomeActivity {
             isSelected = openApp(APPS_ECEB_PACKAGE);
         } else if (menuItemId == R.id.drawer_item_ECSB) {
             isSelected = openApp(APPS_ECSB_PACKAGE);
-        }else if (menuItemId == R.id.drawer_item_mHBSTraining) {
+        } else if (menuItemId == R.id.drawer_item_mHBSTraining) {
             isSelected = openApp(APPS_MHBS_TRAINING_PACKAGE);
+        } else if (menuItemId == R.id.drawer_item_eHBB) {
+            isSelected = openApp(APPS_EHBB_PACKAGE);
+        } else if (menuItemId == R.id.drawer_item_safeDelivery) {
+            isSelected = openApp(APPS_SAFEDELIVERY_PACKAGE);
         }
         /*else if (menuItemId == R.id.drawer_item_help) {
             attachFragment(getHelpFragment());
@@ -266,8 +265,8 @@ public class MainActivity extends AbsHomeActivity {
     }
 
     /* mod: mirrors function in AbsHomeActivity, the need for this will hopefully be
-    *  removed in future tracker sdk revisions
-    * */
+     *  removed in future tracker sdk revisions
+     * */
     private boolean isInstalled(String packageName) {
         PackageManager packageManager = getBaseContext().getPackageManager();
         try {

@@ -85,6 +85,14 @@
                         android:id="@+id/drawer_item_mHBSTraining"
                         android:orderInCategory="200"
                         android:title="@string/drawer_item_mHBSTraining"/>
+                    <item
+                        android:id="@+id/drawer_item_eHBB"
+                        android:orderInCategory="200"
+                        android:title="eHBB VR App"/>
+                    <item
+                        android:id="@+id/drawer_item_safeDelivery"
+                        android:orderInCategory="200"
+                        android:title="Safe Delivery App"/>
                     <!-- -->
                 </group>
             </menu>
