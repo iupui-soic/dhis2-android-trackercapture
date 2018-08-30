@@ -32,10 +32,12 @@
     <!-- mod: custom app name-->
     <string name="app_name_custom">mHBS (Powered by DHIS2)</string>
     <!--mod: custom apps in drawer-->
-    <string name="drawer_item_redcap">Redcap</string>
+    <string name="drawer_item_redcap">REDcap</string>
     <string name="drawer_item_ECEB">Essential Care for Every Baby</string>
     <string name="drawer_item_ECSB">Essential Newborn Care</string>
-    <string name="drawer_item_mHBSTraining">mHBS Training Application</string>
+    <string name="drawer_item_mHBSTraining">mHBS Training App</string>
+    <string name="drawer_item_eHBB">eHBB VR App</string>
+    <string name="drawer_item_safeDelivery">Safe Delivery App</string>
     <!-- -->
     <string name="action_settings">Settings</string>
     <string name="register_new_event">Register new event</string>

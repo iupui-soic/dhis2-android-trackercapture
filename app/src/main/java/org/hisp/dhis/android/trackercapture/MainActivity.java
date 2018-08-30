@@ -88,8 +88,8 @@ public class MainActivity extends AbsHomeActivity {
             nv.getMenu().findItem(R.id.drawer_item_mHBSTraining).setVisible(isInstalled(APPS_MHBS_TRAINING_PACKAGE));
             nv.getMenu().findItem(R.id.drawer_item_ECSB).setVisible(isInstalled(APPS_ECSB_PACKAGE));
             nv.getMenu().findItem(R.id.drawer_item_redcap).setVisible(isInstalled(APPS_REDCAP_PACKAGE));
-            nv.getMenu().findItem(R.id.drawer_item_redcap).setVisible(isInstalled(APPS_EHBB_PACKAGE));
-            nv.getMenu().findItem(R.id.drawer_item_redcap).setVisible(isInstalled(APPS_SAFEDELIVERY_PACKAGE));
+            nv.getMenu().findItem(R.id.drawer_item_eHBB).setVisible(isInstalled(APPS_EHBB_PACKAGE));
+            nv.getMenu().findItem(R.id.drawer_item_safeDelivery).setVisible(isInstalled(APPS_SAFEDELIVERY_PACKAGE));
 
         } catch (Exception e) {
             e.printStackTrace();

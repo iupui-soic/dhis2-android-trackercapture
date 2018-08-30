@@ -32,7 +32,7 @@ ext {
     minSdkVersion = 15
     compileSdkVersion = 23
     targetSdkVersion = 23
-    versionCode = 59
+    versionCode = 645
     versionName = "0.5.2"
 
     configuration = [
@@ -42,7 +42,7 @@ ext {
             minSdkVersion    : 15,
             compileSdkVersion: 23,
             targetSdkVersion : 23,
-            versionCode      : 58,
+            versionCode      : 645,
             versionName      : "0.5.2"
     ]
 

@@ -88,11 +88,11 @@
                     <item
                         android:id="@+id/drawer_item_eHBB"
                         android:orderInCategory="200"
-                        android:title="eHBB VR App"/>
+                        android:title="@string/drawer_item_eHBB"/>
                     <item
                         android:id="@+id/drawer_item_safeDelivery"
                         android:orderInCategory="200"
-                        android:title="Safe Delivery App"/>
+                        android:title="@string/drawer_item_safeDelivery"/>
                     <!-- -->
                 </group>
             </menu>
