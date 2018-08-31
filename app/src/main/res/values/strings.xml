@@ -104,4 +104,6 @@
     <string name="choose_organisation_unit">Choose health facility</string>
     <string name="dialog_organisation_units">Health Facilities</string>
     <string name="un_enroll">Deactivate</string>
+    <string name="complete">Submit</string>
+    <string name="incomplete">Edit</string>
 </resources>
