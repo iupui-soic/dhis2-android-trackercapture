@@ -106,4 +106,5 @@
     <string name="un_enroll">Deactivate</string>
     <string name="complete">Submit</string>
     <string name="incomplete">Edit</string>
+    <string name="home">Home</string>
 </resources>

@@ -69,7 +69,7 @@ public class HolderActivity extends AbsHomeActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        addMenuItem(11, R.drawable.ic_add, R.string.enroll);
+        addMenuItem(11, R.drawable.ic_home, R.string.home);
         if (savedInstanceState == null) {
             onNavigationItemSelected(getNavigationView().getMenu()
                     .findItem(11));

@@ -121,7 +121,7 @@ public class MainActivity extends AbsHomeActivity {
     //todo: testing adding 12
     private void setUpNavigationView(Bundle savedInstanceState) {
         removeMenuItem(R.id.drawer_item_profile);
-        addMenuItem(11, R.drawable.ic_add, R.string.enroll);
+        addMenuItem(11, R.drawable.ic_home, R.string.home);
         if (savedInstanceState == null) {
             onNavigationItemSelected(getNavigationView().getMenu()
                     .findItem(11));
