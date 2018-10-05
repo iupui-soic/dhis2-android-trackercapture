@@ -8,8 +8,10 @@ import org.hisp.dhis.android.sdk.controllers.DhisController;
 import org.hisp.dhis.android.sdk.controllers.metadata.MetaDataController;
 import org.hisp.dhis.android.sdk.controllers.tracker.TrackerController;
 import org.hisp.dhis.android.sdk.persistence.models.Enrollment;
+import org.hisp.dhis.android.sdk.persistence.models.TrackedEntityAttributeValue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*mod: this class was added as a broadcast receiver.
  * It is called when training app does not have a user logged in
@@ -34,9 +36,13 @@ public class LoginReceiver extends BroadcastReceiver {
             userDetails.add(1, DhisController.getInstance().getSession().getCredentials().getPassword());
             userDetails.add(2, DhisController.getInstance().getSession().getServerUrl().toString());
             for (Enrollment enrollment : TrackerController.getActiveEnrollments()) {
-                if (enrollment.getAttributes().get(4).getTrackedEntityAttributeId().equals(PIN_ID)) {
-                    validPins.append(enrollment.getAttributes().get(4).getValue() + ",");
+                int Pin_index = 0;
+                List<TrackedEntityAttributeValue> arrayList = enrollment.getAttributes();
+                for (int i = 0; i < arrayList.size(); i++) {
+                    if (arrayList.get(i).getTrackedEntityAttributeId().equals(PIN_ID))
+                        Pin_index = i;
                 }
+                validPins.append(enrollment.getAttributes().get(Pin_index).getValue() + ",");
             }
             userDetails.add(3, validPins.toString());
 
