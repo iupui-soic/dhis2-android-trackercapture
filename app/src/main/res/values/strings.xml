@@ -36,7 +36,7 @@
     <string name="drawer_item_ECEB">Essential Care for Every Baby</string>
     <string name="drawer_item_ECSB">Essential Newborn Care</string>
     <string name="drawer_item_mHBSTraining">mHBS Training App</string>
-    <string name="drawer_item_eHBB">eHBB VR App</string>
+    <!--<string name="drawer_item_eHBB">eHBB VR App</string>-->
     <string name="drawer_item_safeDelivery">Safe Delivery App</string>
     <!-- -->
     <string name="action_settings">Settings</string>

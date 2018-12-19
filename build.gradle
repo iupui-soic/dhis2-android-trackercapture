@@ -32,8 +32,8 @@ ext {
     minSdkVersion = 15
     compileSdkVersion = 23
     targetSdkVersion = 23
-    versionCode = 646
-    versionName = "0.5.2"
+    versionCode = 652
+    versionName = "1.0.1"
 
     configuration = [
             package          : "edu.iupui.soic.bhi.plhi.mhbs",
@@ -42,8 +42,8 @@ ext {
             minSdkVersion    : 15,
             compileSdkVersion: 23,
             targetSdkVersion : 23,
-            versionCode      : 646,
-            versionName      : "0.5.2"
+            versionCode      : 652,
+            versionName      : "1.0.1"
     ]
 
     libraries = [

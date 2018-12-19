@@ -29,8 +29,6 @@
 
 package org.hisp.dhis.android.trackercapture.fragments.trackedentityinstanceprofile;
 
-import static org.apache.commons.lang3.StringUtils.isEmpty;
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.content.Loader;
@@ -49,7 +47,6 @@ import org.hisp.dhis.android.sdk.controllers.GpsController;
 import org.hisp.dhis.android.sdk.controllers.metadata.MetaDataController;
 import org.hisp.dhis.android.sdk.controllers.tracker.TrackerController;
 import org.hisp.dhis.android.sdk.persistence.loaders.DbLoader;
-import org.hisp.dhis.android.sdk.persistence.models.Enrollment;
 import org.hisp.dhis.android.sdk.persistence.models.ProgramRule;
 import org.hisp.dhis.android.sdk.persistence.models.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.android.sdk.persistence.models.TrackedEntityAttributeValue;
@@ -65,7 +62,6 @@ import org.hisp.dhis.android.sdk.ui.fragments.dataentry.HideLoadingDialogEvent;
 import org.hisp.dhis.android.sdk.ui.fragments.dataentry.RefreshListViewEvent;
 import org.hisp.dhis.android.sdk.ui.fragments.dataentry.RowValueChangedEvent;
 import org.hisp.dhis.android.sdk.ui.fragments.dataentry.SaveThread;
-import org.hisp.dhis.android.sdk.utils.ScreenSizeConfigurator;
 import org.hisp.dhis.android.sdk.utils.UiUtils;
 import org.hisp.dhis.android.trackercapture.R;
 
@@ -73,6 +69,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 /**
  * Created by erling on 5/18/15.
@@ -144,7 +142,7 @@ public class TrackedEntityInstanceProfileFragment extends DataEntryFragment<Trac
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(org.hisp.dhis.android.sdk.R.menu.menu_data_entry, menu);
         final MenuItem editFormButton = menu.findItem(org.hisp.dhis.android.sdk.R.id.action_new_event);
-        editFormButton.setEnabled(true);
+        editFormButton.setVisible(false);
         editFormButton.setIcon(R.drawable.ic_edit);
         editFormButton.getIcon().setAlpha(0xFF);
     }
@@ -245,6 +243,10 @@ public class TrackedEntityInstanceProfileFragment extends DataEntryFragment<Trac
             form = data;
             listViewAdapter.swapData(form.getDataEntryRows());
             programRuleFragmentHelper.mapFieldsToRulesAndIndicators();
+            for (Row row : form.getDataEntryRows()) {
+                listViewAdapter.disableIndex(row.getItemId());
+            }
+            listView.setItemsCanFocus(false);
         }
     }
 

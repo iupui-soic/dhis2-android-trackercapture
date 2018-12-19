@@ -71,7 +71,7 @@ public class MainActivity extends AbsHomeActivity {
     private static final String APPS_ECEB_PACKAGE = "com.eceb";
     private static final String APPS_ECSB_PACKAGE = "com.ecsb";
     private static final String APPS_MHBS_TRAINING_PACKAGE = "edu.iupui.soic.bhi.plhi.mhbs.training";
-    private static final String APPS_EHBB_PACKAGE = "uk.ac.ox.tropicalmedicine.eHBB";
+    //private static final String APPS_EHBB_PACKAGE = "uk.ac.ox.tropicalmedicine.eHBB";
     private static final String APPS_SAFEDELIVERY_PACKAGE = "dk.maternity.safedelivery";
 
     @Override
@@ -88,7 +88,7 @@ public class MainActivity extends AbsHomeActivity {
             nv.getMenu().findItem(R.id.drawer_item_mHBSTraining).setVisible(isInstalled(APPS_MHBS_TRAINING_PACKAGE));
             nv.getMenu().findItem(R.id.drawer_item_ECSB).setVisible(isInstalled(APPS_ECSB_PACKAGE));
             nv.getMenu().findItem(R.id.drawer_item_redcap).setVisible(isInstalled(APPS_REDCAP_PACKAGE));
-            nv.getMenu().findItem(R.id.drawer_item_eHBB).setVisible(isInstalled(APPS_EHBB_PACKAGE));
+            //nv.getMenu().findItem(R.id.drawer_item_eHBB).setVisible(isInstalled(APPS_EHBB_PACKAGE));
             nv.getMenu().findItem(R.id.drawer_item_safeDelivery).setVisible(isInstalled(APPS_SAFEDELIVERY_PACKAGE));
 
         } catch (Exception e) {
@@ -230,9 +230,9 @@ public class MainActivity extends AbsHomeActivity {
             isSelected = openApp(APPS_ECSB_PACKAGE);
         } else if (menuItemId == R.id.drawer_item_mHBSTraining) {
             isSelected = openApp(APPS_MHBS_TRAINING_PACKAGE);
-        } else if (menuItemId == R.id.drawer_item_eHBB) {
+        } /*else if (menuItemId == R.id.drawer_item_eHBB) {
             isSelected = openApp(APPS_EHBB_PACKAGE);
-        } else if (menuItemId == R.id.drawer_item_safeDelivery) {
+        }*/ else if (menuItemId == R.id.drawer_item_safeDelivery) {
             isSelected = openApp(APPS_SAFEDELIVERY_PACKAGE);
         }
         /*else if (menuItemId == R.id.drawer_item_help) {
