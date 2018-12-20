@@ -134,6 +134,7 @@ import org.hisp.dhis.android.trackercapture.ui.rows.programoverview.ProgramStage
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -146,6 +147,8 @@ public class ProgramOverviewFragment extends AbsProgramRuleFragment implements V
         LoaderManager.LoaderCallbacks<ProgramOverviewFragmentForm>,
         AdapterView.OnItemSelectedListener, SwipeRefreshLayout.OnRefreshListener, IEnroller,
         OnBackPressedListener {
+
+    private final String[] TRAINEE_ALLOWED_STAGES = {"Knowledge Check","Delivery and HBB Activity Log","Follow Up Survey","Y6KlcZo35JD","dC605Jt9Msf","FipaZL3e7TA"};
 
     public static final String CLASS_TAG = ProgramOverviewFragment.class.getSimpleName();
     private static final String STATE = "state:UpcomingEventsFragment";
@@ -607,14 +610,30 @@ public class ProgramOverviewFragment extends AbsProgramRuleFragment implements V
 
             reloadProgramRules();
             List<ProgramStageRow> validRows = new ArrayList<>();
+            //TODO: for eHBB trial-only
+            String username = DhisController.getInstance().getSession().getCredentials().getUsername();
+            Boolean isTrainee = isInteger(username);
+
             for(ProgramStageRow programStageRow : mForm.getProgramStageRows()){
-                if(programStageRow instanceof  ProgramStageLabelRow) {
+                if(programStageRow instanceof ProgramStageLabelRow) {
                     if (!programRuleFragmentHelper.getHideProgramStages().contains(((ProgramStageLabelRow) programStageRow).getProgramStage().getUid())){
-                        validRows.add(programStageRow);
+                        if(isTrainee){
+                            if(Arrays.asList(TRAINEE_ALLOWED_STAGES).contains(((ProgramStageLabelRow) programStageRow).getProgramStage().getName())) {
+                                validRows.add(programStageRow);
+                            }
+                        } else {
+                            validRows.add(programStageRow);
+                        }
                     }
-                }else if(programStageRow instanceof  ProgramStageEventRow) {
+                } else if(programStageRow instanceof  ProgramStageEventRow) {
                     if (!programRuleFragmentHelper.getHideProgramStages().contains(((ProgramStageEventRow) programStageRow).getEvent().getProgramStageId())){
-                        validRows.add(programStageRow);
+                        if(isTrainee){
+                            if(Arrays.asList(TRAINEE_ALLOWED_STAGES).contains(((ProgramStageEventRow) programStageRow).getEvent().getProgramStageId())) {
+                                validRows.add(programStageRow);
+                            }
+                        } else {
+                            validRows.add(programStageRow);
+                        }
                     }
                 }
             }
@@ -1442,5 +1461,21 @@ public class ProgramOverviewFragment extends AbsProgramRuleFragment implements V
     }
 
     public void hideProgramStage(ProgramRuleAction programRuleAction) {
+    }
+
+    public boolean isInteger(String str) {
+        if (str == null) {
+            return false;
+        }
+        if (str.isEmpty()) {
+            return false;
+        }
+        for (int i=0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
     }
 }
