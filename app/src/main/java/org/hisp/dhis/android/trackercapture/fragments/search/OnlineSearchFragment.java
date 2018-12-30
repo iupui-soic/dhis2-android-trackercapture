@@ -365,17 +365,37 @@ public class OnlineSearchFragment extends Fragment implements View.OnClickListen
 
             @Override
             public Object execute() throws APIException {
-
+                String username = DhisController.getInstance().getSession().getCredentials().getUsername();
                 List<TrackedEntityInstance> trackedEntityInstancesQueryResult = null;
-                if (detailedSearch) {
-                    trackedEntityInstancesQueryResult = TrackerController.queryTrackedEntityInstancesDataFromAllAccessibleOrgUnits(DhisController.getInstance().getDhisApi(), orgUnit, program, queryString, detailedSearch, params);
+                if(isInteger(username)){
+                    trackedEntityInstancesQueryResult = TrackerController.queryTrackedEntityInstancesDataFromServer(DhisController.getInstance().getDhisApi(), orgUnit, program, username, params);
                 } else {
-                    trackedEntityInstancesQueryResult = TrackerController.queryTrackedEntityInstancesDataFromServer(DhisController.getInstance().getDhisApi(), orgUnit, program, queryString, params);
+                    if (detailedSearch) {
+                        trackedEntityInstancesQueryResult = TrackerController.queryTrackedEntityInstancesDataFromAllAccessibleOrgUnits(DhisController.getInstance().getDhisApi(), orgUnit, program, queryString, detailedSearch, params);
+                    } else {
+                        trackedEntityInstancesQueryResult = TrackerController.queryTrackedEntityInstancesDataFromServer(DhisController.getInstance().getDhisApi(), orgUnit, program, queryString, params);
+                    }
                 }
 
                 // showTrackedEntityInstanceQueryResultDialog(fragmentManager, trackedEntityInstancesQueryResult, orgUnit);
                 showOnlineSearchResultFragment(trackedEntityInstancesQueryResult, orgUnit, program, backNavigation);
                 return new Object();
+            }
+
+            public boolean isInteger(String str) {
+                if (str == null) {
+                    return false;
+                }
+                if (str.isEmpty()) {
+                    return false;
+                }
+                for (int i=0; i < str.length(); i++) {
+                    char c = str.charAt(i);
+                    if (c < '0' || c > '9') {
+                        return false;
+                    }
+                }
+                return true;
             }
         });
     }
