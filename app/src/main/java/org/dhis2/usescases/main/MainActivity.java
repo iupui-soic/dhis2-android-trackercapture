@@ -66,21 +66,21 @@ public class MainActivity extends ActivityGlobalAbstract implements MainContract
         Objects.requireNonNull(((App) getApplicationContext()).userComponent()).plus(new MainModule()).inject(this);
 
         super.onCreate(savedInstanceState);
-        //check and hide the external apps
-        NavigationView nv = findViewById(R.id.nav_view);
-        try {
-            nv.getMenu().getItem(R.id.drawer_item_mHBSTraining).setVisible(isInstalled(APPS_MHBS_TRAINING_PACKAGE));
-            nv.getMenu().getItem(R.id.drawer_item_eHBB).setVisible(isInstalled(APPS_EHBB_PACKAGE));
-            nv.getMenu().getItem(R.id.drawer_item_safeDelivery).setVisible(isInstalled(APPS_SAFEDELIVERY_PACKAGE));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setPresenter(presenter);
         binding.navView.setNavigationItemSelectedListener(item -> {
             changeFragment(item.getItemId());
             return false;
         });
+        //check and hide the external apps
+        try {
+            NavigationView nv = binding.navView;
+            nv.getMenu().findItem(R.id.drawer_item_mHBSTraining).setVisible(isInstalled(APPS_MHBS_TRAINING_PACKAGE));
+            nv.getMenu().findItem(R.id.drawer_item_eHBB).setVisible(isInstalled(APPS_EHBB_PACKAGE));
+            nv.getMenu().findItem(R.id.drawer_item_safeDelivery).setVisible(isInstalled(APPS_SAFEDELIVERY_PACKAGE));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         binding.pinLayout.pinLockView.attachIndicatorDots(binding.pinLayout.indicatorDots);
         binding.pinLayout.pinLockView.setPinLockListener(new PinLockListener() {
             @Override
@@ -244,15 +244,12 @@ public class MainActivity extends ActivityGlobalAbstract implements MainContract
                 presenter.logOut();
                 break;
             case R.id.drawer_item_mHBSTraining:
-                System.out.println("click on mhbs training");
                 openApp(APPS_MHBS_TRAINING_PACKAGE);
                 break;
             case R.id.drawer_item_eHBB:
-                System.out.println("Click on eHBB app");
                 openApp(APPS_EHBB_PACKAGE);
                 break;
             case R.id.drawer_item_safeDelivery:
-                System.out.println("Click on safeDelivery");
                 openApp(APPS_SAFEDELIVERY_PACKAGE);
                 break;
             case R.id.menu_home:
