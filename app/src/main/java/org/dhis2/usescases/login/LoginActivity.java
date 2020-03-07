@@ -28,6 +28,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -49,6 +50,9 @@ public class LoginActivity extends ActivityGlobalAbstract implements LoginContra
 
     private boolean isPinScreenVisible = false;
     private String qrUrl;
+    private String serverUrl;
+    private String username;
+    private String password;
 
 
     @Override
@@ -73,7 +77,17 @@ public class LoginActivity extends ActivityGlobalAbstract implements LoginContra
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.init(this);
+        if(serverUrl == null){
+            presenter.init(this, getContext().getString(R.string.login_https));
+        }else{
+            presenter.init(this, serverUrl);
+        }
+        if(username != null){
+            binding.userNameEdit.setText(username);
+        }
+        if(password != null){
+            binding.userPassEdit.setText(password);
+        }
         NetworkUtils.isGooglePlayServicesAvailable(this);
     }
 
@@ -202,7 +216,7 @@ public class LoginActivity extends ActivityGlobalAbstract implements LoginContra
     @Override
     public void resetCredentials(boolean resetServer, boolean resetUser, boolean resetPass) {
         if (resetServer)
-            binding.serverUrlEdit.setText(null);
+            binding.serverUrlEdit.setText(getContext().getString(R.string.login_https));
         if (resetUser)
             binding.userNameEdit.setText(null);
         if (resetPass)
@@ -351,13 +365,22 @@ public class LoginActivity extends ActivityGlobalAbstract implements LoginContra
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString("server_url",binding.serverUrlEdit.getText().toString());
+        outState.putString("username",binding.userNameEdit.getText().toString());
+        outState.putString("password",binding.userPassEdit.getText().toString());
+        serverUrl = binding.serverUrlEdit.getText().toString();
+        username = binding.userNameEdit.getText().toString();
+        password = binding.userPassEdit.getText().toString();
+        super.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onRestoreInstanceState(savedInstanceState, persistentState);
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        binding.serverUrlEdit.setText(savedInstanceState.getString("server_url"));
+        binding.userPassEdit.setText(savedInstanceState.getString("username"));
+        binding.userPassEdit.setText(savedInstanceState.getString("password"));
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override

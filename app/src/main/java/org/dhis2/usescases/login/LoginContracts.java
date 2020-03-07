@@ -60,7 +60,7 @@ public class LoginContracts {
     }
 
     public interface Presenter {
-        void init(View view);
+        void init(View view, String serverUrl);
 
         void onServerChanged(CharSequence s, int start, int before, int count);
 

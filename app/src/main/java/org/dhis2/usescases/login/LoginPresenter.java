@@ -57,7 +57,7 @@ public class LoginPresenter implements LoginContracts.Presenter {
     }
 
     @Override
-    public void init(LoginContracts.View view) {
+    public void init(LoginContracts.View view, String serverUrl) {
         this.view = view;
         this.disposable = new CompositeDisposable();
 
@@ -90,11 +90,11 @@ public class LoginPresenter implements LoginContracts.Presenter {
                                         if (systemInfo.contextPath() != null)
                                             view.setUrl(systemInfo.contextPath());
                                         else
-                                            view.setUrl(view.getContext().getString(R.string.login_https));
+                                            view.setUrl(serverUrl);
                                     },
                                     Timber::e));
         } else
-            view.setUrl(view.getContext().getString(R.string.login_https));
+            view.setUrl(serverUrl);
 
 
         if (false && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) //TODO: REMOVE FALSE WHEN GREEN LIGHT
@@ -117,7 +117,7 @@ public class LoginPresenter implements LoginContracts.Presenter {
     public void onServerChanged(CharSequence s, int start, int before, int count) {
         testingSet = false;
         isServerUrlSet.set(!view.getBinding().serverUrl.getEditText().getText().toString().isEmpty());
-        view.resetCredentials(false, true, true);
+        view.resetCredentials(false, false, false);
 
         if (isServerUrlSet.get() && !testingSet &&
                 (view.getBinding().serverUrl.getEditText().getText().toString().equals(Constants.URL_TEST_229) ||
@@ -133,7 +133,7 @@ public class LoginPresenter implements LoginContracts.Presenter {
     @Override
     public void onUserChanged(CharSequence s, int start, int before, int count) {
         isUserNameSet.set(!view.getBinding().userName.getEditText().getText().toString().isEmpty());
-        view.resetCredentials(false, false, true);
+        view.resetCredentials(false, false, false);
 
         view.setLoginVisibility(isServerUrlSet.get() && isUserNameSet.get() && isUserPassSet.get());
 
@@ -258,6 +258,7 @@ public class LoginPresenter implements LoginContracts.Presenter {
         Timber.d("Authentication response url: %s", userResponse.raw().request().url().toString());
         Timber.d("Authentication response code: %s", userResponse.code());
         view.showLoginProgress(false);
+        view.resetCredentials(true, true, true);
         if (userResponse.isSuccessful()) {
             ((App) view.getContext().getApplicationContext()).createUserComponent();
             view.saveUsersData();
@@ -285,6 +286,7 @@ public class LoginPresenter implements LoginContracts.Presenter {
         }
 
         view.showLoginProgress(false);
+        view.resetCredentials(false, true, true);
     }
 
     @Override
