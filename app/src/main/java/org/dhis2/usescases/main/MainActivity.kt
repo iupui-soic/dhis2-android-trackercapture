@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.transition.ChangeBounds
 import android.transition.TransitionManager
@@ -66,6 +67,12 @@ class MainActivity :
     private var fragId: Int = 0
     private var prefs: SharedPreferences? = null
     private var backDropActive = false
+
+    // App
+    private var APPS_MHBS_TRAINING_PACKAGE = "edu.iupui.soic.bhi.plhi.mhbs.training";
+    private var APPS_EHBB_PACKAGE = "uk.ac.ox.tropicalmedicine.eHBB";
+    private var APPS_SAFEDELIVERY_PACKAGE = "dk.maternity.safedelivery";
+
 
     //region LIFECYCLE
 
@@ -326,6 +333,15 @@ class MainActivity :
                 analyticsHelper.setEvent(CLOSE_SESSION, CLICK, CLOSE_SESSION)
                 presenter.logOut()
             }
+            R.id.menu_item_mHBSTraining -> {
+                openApp(APPS_MHBS_TRAINING_PACKAGE);
+            }
+            R.id.menu_item_eHBB -> {
+                openApp(APPS_EHBB_PACKAGE);
+            }
+            R.id.menu_item_safeDelivery -> {
+                openApp(APPS_SAFEDELIVERY_PACKAGE);
+            }
             R.id.menu_home -> {
                 activeFragment = ProgramFragment()
                 programFragment = activeFragment as ProgramFragment?
@@ -357,6 +373,30 @@ class MainActivity :
 
         if (backDropActive && activeFragment !is ProgramFragment) {
             showHideFilter()
+        }
+    }
+
+    private fun openApp( packageName : String) {
+        val pm : PackageManager = packageManager
+        try {
+            val launchIntent : Intent? = pm.getLaunchIntentForPackage(packageName)
+            startActivity(launchIntent)
+        } catch (e1 : Exception) {
+            e1.printStackTrace()
+        }
+    }
+
+    /* mod: mirrors function in AbsHomeActivity, the need for this will hopefully be
+     *  removed in future tracker sdk revisions
+     * */
+    private fun isInstalled(packageName : String) : Boolean{
+        val pm : PackageManager = packageManager
+        return try {
+            // using side effect of calling getPackageInfo() method
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+            true
+        } catch (e : PackageManager.NameNotFoundException) {
+            false
         }
     }
 }

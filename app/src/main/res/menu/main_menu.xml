@@ -13,15 +13,15 @@
         android:id="@+id/app_sections"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/drawer_item_mHBSTraining"
+            android:id="@+id/menu_item_mHBSTraining"
             android:icon="@drawable/common_full_open_on_phone"
             android:title="@string/drawer_item_mHBSTraining" />
         <item
-            android:id="@+id/drawer_item_eHBB"
+            android:id="@+id/menu_item_eHBB"
             android:icon="@drawable/common_full_open_on_phone"
             android:title="@string/drawer_item_eHBB" />
         <item
-            android:id="@+id/drawer_item_safeDelivery"
+            android:id="@+id/menu_item_safeDelivery"
             android:icon="@drawable/common_full_open_on_phone"
             android:title="@string/drawer_item_safeDelivery" />
     </group>
