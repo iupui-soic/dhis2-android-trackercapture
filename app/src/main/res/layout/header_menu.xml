@@ -26,6 +26,6 @@
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@id/user_info"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_dhis_white"
+        app:srcCompat="@drawable/mhbs_logo"
         tools:ignore="ContentDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>
