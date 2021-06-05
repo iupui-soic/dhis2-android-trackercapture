@@ -40,7 +40,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_dhis_white" />
+                app:srcCompat="@drawable/mhbs_logo" />
 
             <TextView
                 android:id="@+id/app_build_info"
